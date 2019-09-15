@@ -51,7 +51,7 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     保存代码。接着根据VSCode的提示安装相应的包：点击`Install All`即可。
     ![editHelloGo](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/editHelloGo.PNG)  
     事实上，这一步往往会由于连接不上`golang.org`等问题而导致安装失败。  
-    ![InstallFailed](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/InstallFailed.PNG)
+    ![InstallFailed](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/InstallFailed.PNG)  
     具体的错误解决办法可参加[我的博客](https://blog.csdn.net/xxiangyusb/article/details/100858000)  
 3. 现在可以用go工具构建并安装此程序了：
     ```
