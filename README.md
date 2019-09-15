@@ -49,10 +49,10 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     }
     ```
     保存代码。接着根据VSCode的提示安装相应的包：点击`Install All`即可。
-    ![editHelloGo](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/editHelloGo.PNG)
-    事实上，这一步往往会由于连接不上`golang.org`等问题而导致安装失败。
+    ![editHelloGo](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/editHelloGo.PNG)  
+    事实上，这一步往往会由于连接不上`golang.org`等问题而导致安装失败。  
     ![InstallFailed](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/InstallFailed.PNG)
-    具体的错误解决办法可参加[我的博客](https://blog.csdn.net/xxiangyusb/article/details/100858000)
+    具体的错误解决办法可参加[我的博客](https://blog.csdn.net/xxiangyusb/article/details/100858000)  
 3. 现在可以用go工具构建并安装此程序了：
     ```
     go install github.com/Jie-Re/hello
@@ -63,19 +63,19 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     $ cd $GOPATH/src/github.com/user/hello
     $ go install
     ```
-    此命令会构建`hello`命令，产生一个可执行的二进制文件。接着它会将该二进制文件作为`hello`安装到工作空间的`bin`目录中。在本文所述例子中为`$GOPATH/bin/hello`。
+    此命令会构建`hello`命令，产生一个可执行的二进制文件。接着它会将该二进制文件作为`hello`安装到工作空间的`bin`目录中。在本文所述例子中为`$GOPATH/bin/hello`。  
     ![bin_hello](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/bin_hello.PNG)
 4. 现在就可直接在命令行下输入`hello`的完整路径来执行它了：
     ```
     $GOPATH/bin/hello
     ```
-    运行结果：
-    ![runResult](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/runResult.PNG)
-    事实上，由于我们前面已经将`$GOPATH/bin`添加到`PATH`中了，所以其实只需要输入该二进制文件名即可：
+    运行结果：  
+    ![runResult](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/runResult.PNG)  
+    事实上，由于我们前面已经将`$GOPATH/bin`添加到`PATH`中了，所以其实只需要输入该二进制文件名即可：  
     ```
     hello
     ```
-    运行结果：
+    运行结果：  
     ![runResult2](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/runResult2.PNG)
 5. 初始化仓库，添加文件并提交第一次更改到github仓库
     ```
@@ -120,7 +120,7 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     ```
     go build github.com/Jie-Re/stringutil
     ```
-    若当前处在该包的根目录，则只需执行`go build`即可
+    若当前处在该包的根目录，则只需执行`go build`即可  
     这里不会产生输出文件。想要输出的话，必须使用`go install`命令，它会将包的对象放到工作空间的`pkg`目录中。
 5. 确认`stringutil`包构建完毕后，修改原来的`hello.go`文件如下：
     ```
