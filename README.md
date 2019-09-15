@@ -52,7 +52,7 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     ![editHelloGo](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/editHelloGo.PNG)
     事实上，这一步往往会由于连接不上`golang.org`等问题而导致安装失败。
     ![InstallFailed](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/InstallFailed.PNG)
-    具体的错误解决办法可参加[我的博客]()
+    具体的错误解决办法可参加[我的博客](https://blog.csdn.net/xxiangyusb/article/details/100858000)
 3. 现在可以用go工具构建并安装此程序了：
     ```
     go install github.com/Jie-Re/hello
@@ -83,6 +83,116 @@ mkdir -p $GOPATH/src/github.com/Jie-Re
     $ git init
     $ git add hello.go
     $ git commit -m "initial"
-
     ```
+    接下来，通过以下命令将代码推送到远程仓库：
+    ```
+    $ git remote add origin git@github.com:Jie-Re/GoGo.git
+    $ git push -u origin master
+    ```
+    推送代码到远程仓库过程中可能发生的错误解决办法以及进一步的操作可参见[我的博客](https://blog.csdn.net/xxiangyusb/article/details/100858000)
 
+## 第一个Go库
+下面编写一个库，并让`hello`程序来使用它
+1. 选择包路径`github.com/Jie-Re/sringutil`并创建包目录
+    ```
+    mkdir $GOPATH/src/github.com/Jie-Re/stringutil
+    ```
+2. 在该目录中创建名为`reverse.go`的文件
+    ```
+    $ cd $GOPATH/src/github.com/Jie-Re/stringutil
+    $ code reverse.go
+    ```
+3. 编辑`reverse.go`代码，保存，退出：
+    ```
+    // stringutil 包含有用于处理字符串的工具函数。
+    package stringutil
+    
+    // Reverse 将其实参字符串以符文为单位左右反转。
+    func Reverse(s string) string {
+    	r := []rune(s)
+    	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+    		r[i], r[j] = r[j], r[i]
+    	}
+    	return string(r)
+    }
+    ```
+4. 用`go build`命令测试该包的编译：
+    ```
+    go build github.com/Jie-Re/stringutil
+    ```
+    若当前处在该包的根目录，则只需执行`go build`即可
+    这里不会产生输出文件。想要输出的话，必须使用`go install`命令，它会将包的对象放到工作空间的`pkg`目录中。
+5. 确认`stringutil`包构建完毕后，修改原来的`hello.go`文件如下：
+    ```
+    package main
+    
+    import (
+    	"fmt"
+    
+    	"github.com/Jie-Re/stringutil"
+    )
+    
+    func main() {
+    	fmt.Printf(stringutil.Reverse("!oG ,olleH"))
+    }
+    ```
+6. 安装`hello`程序（此时`stringutil`包也会被自动安装）
+    ```
+    go install github.com/Jie-Re/hello
+    ```
+7. 运行`hello`
+![helloGo](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/helloGo.PNG)
+8. 查看工作空间目录树
+    - 可通过`tree`来查看：
+    `sudo yum install tree`（安装）
+    - 安装后通过相关命令即可查看当前目录的目录树
+    ```
+    tree -a     # 显示所有
+    tree -d     # 仅显示目录
+    tree -L n   # n表示显示几层
+    tree -f     # 显示完整路径
+    ```
+由于文件过多，故而以下只给出显示2层的结果：
+![tree-L2](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/tree-L2.PNG)
+
+## 测试
+Go有一个轻量级的测试框架，它由`go test`命令和`testing`包构成。
+1. 创建并编辑测试文件
+    ```
+    $ cd $GOPATH/src/github.com/Jie-Re/stringutil
+    $ code reverse_test.go
+    ```
+    其内容如下：
+    ```
+    package stringutil
+    
+    import "testing"
+    
+    func TestReverse(t *testing.T) {
+    	cases := []struct {
+    		in, want string
+    	}{
+    		{"Hello, world", "dlrow ,olleH"},
+    		{"Hello, 世界", "界世 ,olleH"},
+    		{"", ""},
+    	}
+    	for _, c := range cases {
+    		got := Reverse(c.in)
+    		if got != c.want {
+    			t.Errorf("Reverse(%q) == %q, want %q", c.in, got, c.want)
+    		}
+    	}
+    }
+    ```
+2. 使用`go test`运行该测试：
+    ```
+    go test github.com/Jie-Re/stringutil
+    ```
+    ![goTestResult](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/goTestResult.png)
+
+## 远程包测试
+```
+$ go get github.com/golang/example/hello
+$ $GOPATH/bin/hello
+```
+![remoteHello](https://github.com/Jie-Re/MyImages/raw/master/ServiceComputingGraphs/remoteHello.PNG)
